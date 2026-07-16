@@ -48,7 +48,11 @@ export function Nav({ links }: { links: NavLink[] }) {
         }}
       >
         <Link to="/" style={{ display: "flex", alignItems: "center", flex: "none" }}>
-          <img src="/skilltimate-logo.png" alt="Skilltimate" style={{ height: 26, width: "auto", display: "block" }} />
+          <img
+            src="/skilltimate-logo.png"
+            alt="Skilltimate"
+            style={{ height: 30, width: "auto", display: "block", imageRendering: "auto" }}
+          />
         </Link>
         <div
           className="st-navlinks-desktop"
