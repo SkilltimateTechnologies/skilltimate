@@ -4,6 +4,7 @@ import { Nav } from "../components/site/nav";
 import { Footer, FloatingWA } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { useSubmitLead } from "../lib/use-lead";
+import { usePageSeo } from "../lib/seo-config";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },
@@ -39,6 +40,7 @@ const inputStyle: React.CSSProperties = {
 };
 
 export default function Contact() {
+  usePageSeo("/contact");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { C, FONT } from "../lib/theme";
 import { CLIPS, INCLUDED, LANDING_QUOTES, LANDING_FAQS, TICKER } from "../lib/site-data";
+import { usePageSeo, faqLd } from "../lib/seo-config";
 import { Nav } from "../components/site/nav";
 import { Footer } from "../components/site/footer";
 import { Star } from "../components/site/icons";
@@ -103,6 +104,7 @@ const sectionHead = (color: string): React.CSSProperties => ({
 });
 
 export default function Landing() {
+  usePageSeo("/", [faqLd(LANDING_FAQS)]);
   const P = usePricing();
   const cd = useOfferExpiry(P.offerHours);
   const [fabShow, setFabShow] = useState(false);

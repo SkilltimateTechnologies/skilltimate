@@ -4,6 +4,7 @@ import { Footer, FloatingWA } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { RegisterButton } from "../components/site/primitives";
 import { usePricing } from "../hooks/use-pricing";
+import { usePageSeo } from "../lib/seo-config";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },
@@ -19,6 +20,7 @@ const VALUES = [
 ];
 
 export default function About() {
+  usePageSeo("/about");
   const P = usePricing();
   const STATS = [
     { v: "4", label: "Microsoft fundamentals tracks" },

@@ -7,6 +7,7 @@ import { Star } from "../components/site/icons";
 import { RegisterButton } from "../components/site/primitives";
 import { useSubmitLead } from "../lib/use-lead";
 import { usePricing } from "../hooks/use-pricing";
+import { useCourseSeo } from "../lib/seo-config";
 
 const mix = (accent: string, pct: number) => `color-mix(in oklab,${accent} ${pct}%,transparent)`;
 
@@ -17,7 +18,7 @@ function CourseNav({ activeKey }: { activeKey: string }) {
       <div className="wrap-cp" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64, gap: 20 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16, flex: "none" }}>
           <Link to="/" style={{ display: "flex", alignItems: "center" }}>
-            <img src="/skilltimate-logo.png" alt="Skilltimate" style={{ height: 26, width: "auto", display: "block" }} />
+            <img src="/skilltimate-logo.png" alt="Skilltimate" style={{ height: 30, width: "auto", display: "block", imageRendering: "auto" }} />
           </Link>
           <Link to="/" style={{ display: "inline-flex", alignItems: "center", gap: ".45em", fontFamily: FONT.mono, fontSize: ".72rem", letterSpacing: ".06em", color: C.mute, padding: ".5em .9em", borderRadius: 100, border: `1px solid rgba(127,186,255,.16)` }}>
             <span style={{ fontSize: "1.1em" }}>←</span>Home
@@ -52,6 +53,7 @@ export default function CoursePage() {
   const [formErr, setFormErr] = useState<string | null>(null);
 
   const key = (params.slug || "ai-900").toLowerCase();
+  useCourseSeo(key);
   const d = COURSE_DATA[key];
   if (!d) return <Redirect to="/" />;
   const acc = C.azure; // unified brand accent across all courses (matches home page)

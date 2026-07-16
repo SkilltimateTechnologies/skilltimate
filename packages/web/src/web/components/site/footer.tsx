@@ -54,7 +54,7 @@ export function Footer({ accent = C.azureSoft, showContact = false }: { accent?:
         <div style={{ display: "flex", justifyContent: "space-between", gap: "48px 40px", flexWrap: "wrap", paddingBottom: 40 }}>
           <div style={{ maxWidth: 320 }}>
             <Link to="/" style={{ display: "inline-flex", alignItems: "center" }}>
-              <img src="/skilltimate-logo.png" alt="Skilltimate" style={{ height: 22, width: "auto", display: "block" }} />
+              <img src="/skilltimate-logo.png" alt="Skilltimate" style={{ height: 30, width: "auto", display: "block", imageRendering: "auto" }} />
             </Link>
             <p style={{ marginTop: 16, fontSize: ".86rem", color: C.mute, lineHeight: 1.65 }}>
               Microsoft AI, Azure, Copilot &amp; Data certifications — self-paced, simply explained, with unlimited mock

@@ -6,6 +6,7 @@ import { Nav } from "../components/site/nav";
 import { Footer, FloatingWA } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { RegisterButton } from "../components/site/primitives";
+import { usePageSeo } from "../lib/seo-config";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },
@@ -23,6 +24,7 @@ function decorate(slug: string) {
 }
 
 export default function Blog() {
+  usePageSeo("/blog");
   const [filter, setFilter] = useState("all");
   const featured = decorate("ab-900-future-proof");
 

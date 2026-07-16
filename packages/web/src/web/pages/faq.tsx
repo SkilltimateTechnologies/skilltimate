@@ -4,6 +4,7 @@ import { Footer, FloatingWA } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { RegisterButton } from "../components/site/primitives";
 import { usePricing } from "../hooks/use-pricing";
+import { usePageSeo, faqLd } from "../lib/seo-config";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },
@@ -57,6 +58,7 @@ const groupsFor = (P: ReturnType<typeof usePricing>) => [
 export default function FAQ() {
   const P = usePricing();
   const GROUPS = groupsFor(P);
+  usePageSeo("/faq", [faqLd(GROUPS.flatMap((g) => g.items))]);
   return (
     <div style={{ overflowX: "clip", minHeight: "100vh" }}>
       <Nav links={NAV_LINKS} />

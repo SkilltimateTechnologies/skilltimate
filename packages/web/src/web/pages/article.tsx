@@ -7,6 +7,7 @@ import { Footer, FloatingWA } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { RegisterButton } from "../components/site/primitives";
 import { usePricing } from "../hooks/use-pricing";
+import { useArticleSeo } from "../lib/seo-config";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },
@@ -26,8 +27,8 @@ export default function ArticlePage() {
   const acc = course.accent;
   const courseSlug = a.course;
 
+  useArticleSeo({ slug: a.slug, title: a.title, description: a.blurb, faqs: a.faq });
   useEffect(() => {
-    document.title = `${a.title} · Skilltimate`;
     window.scrollTo(0, 0);
   }, [a.title]);
 

@@ -3,6 +3,7 @@ import { C, FONT } from "../lib/theme";
 import { Nav } from "../components/site/nav";
 import { Footer, FloatingWA } from "../components/site/footer";
 import { usePricing } from "../hooks/use-pricing";
+import { usePageSeo } from "../lib/seo-config";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },
@@ -38,6 +39,7 @@ const termsFor = (P: ReturnType<typeof usePricing>): Sec[] => [
 ];
 
 export default function Legal({ kind }: { kind: "privacy" | "terms" }) {
+  usePageSeo(kind === "privacy" ? "/privacy" : "/terms");
   const P = usePricing();
   const title = kind === "privacy" ? "Privacy Policy" : "Terms & Conditions";
   const secs = kind === "privacy" ? PRIVACY : termsFor(P);
