@@ -1,0 +1,17 @@
+node_modules
+**/node_modules
+dist
+**/dist
+dist-electron
+release
+web-build
+.git
+.turbo
+.expo
+*.log
+.env
+.env.*
+.git-push.env
+_v*.png
+ios
+android
