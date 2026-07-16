@@ -1,4 +1,4 @@
-import app from "./api/index";
+import app from "./api";
 
 const port = Number(process.env.PORT ?? 3000);
 const distDir = `${import.meta.dir}/../dist`;
