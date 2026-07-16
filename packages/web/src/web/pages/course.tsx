@@ -42,6 +42,7 @@ function CourseNav({ activeKey }: { activeKey: string }) {
 
 export default function CoursePage() {
   const params = useParams();
+  const P = usePricing();
   const submitLead = useSubmitLead();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");

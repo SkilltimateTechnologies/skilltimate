@@ -173,7 +173,7 @@ const app = new Hono<{ Variables: Variables }>()
     await db.delete(schema.leads).where(eq(schema.leads.id, Number(c.req.param("id"))));
     return c.json({ ok: true }, 200);
   })
-  .get("/admin/leads/export", requireAuth, async (c) => {
+  .get("/admin/leads/export", requireAuth, async () => {
     const rows = await db
       .select()
       .from(schema.leads)

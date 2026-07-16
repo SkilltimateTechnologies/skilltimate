@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { C, FONT } from "../../lib/theme";
 import { RegisterButton } from "./primitives";
 import { useRegister } from "./register-modal";
-import { Star } from "./icons";
 
 const courseLinks = [
   { label: "AB-900 · Copilot", href: "/ab-900" },

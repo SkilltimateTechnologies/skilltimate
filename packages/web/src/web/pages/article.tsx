@@ -6,6 +6,7 @@ import { Nav } from "../components/site/nav";
 import { Footer, FloatingWA } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { RegisterButton } from "../components/site/primitives";
+import { usePricing } from "../hooks/use-pricing";
 
 const NAV_LINKS = [
   { label: "Courses", href: "/#tracks" },

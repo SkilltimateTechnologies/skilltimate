@@ -510,6 +510,6 @@ export const ARTICLES: Article[] = [
   }
 ];
 
-export function bySlug(slug) {
+export function bySlug(slug: string) {
   return ARTICLES.find(a => a.slug === slug) || null;
 }

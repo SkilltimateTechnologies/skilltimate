@@ -7,6 +7,7 @@ import { Footer } from "../components/site/footer";
 import { Star } from "../components/site/icons";
 import { Reveal, Eyebrow, RegisterButton, GhostButton, RiskRow } from "../components/site/primitives";
 import { useOfferExpiry, useCountUp, cpad } from "../hooks/use-site";
+import { usePricing } from "../hooks/use-pricing";
 
 const NAV_LINKS = [
   { label: "Why now", href: "#news" },
