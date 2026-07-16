@@ -1,15 +1,15 @@
 /**
- * Seed script — creates the single admin user from ADMIN_EMAIL / ADMIN_PASSWORD.
+ * Seed helper — creates the single admin user from ADMIN_EMAIL / ADMIN_PASSWORD.
  *
- * Run:  cd packages/web && bun --env-file=../../.env run src/api/seed.ts
- * Idempotent: skips admin creation if it already exists.
+ * Runs automatically on server startup (guarded + idempotent) and can also be
+ * invoked directly:  cd packages/web && bun --env-file=../../.env run src/api/seed.ts
  */
 import { db } from "./database/index";
 import * as schema from "./database/schema";
 import { auth } from "./auth";
 import { eq } from "drizzle-orm";
 
-async function seedAdmin() {
+export async function seedAdmin() {
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
   if (!email || !password) {
@@ -27,13 +27,15 @@ async function seedAdmin() {
   console.log(`✓ Admin created: ${email}`);
 }
 
-async function main() {
-  await seedAdmin();
-  console.log("✅ Seed complete");
-  process.exit(0);
+// When run directly as a script (not imported), execute + exit.
+if (import.meta.main) {
+  seedAdmin()
+    .then(() => {
+      console.log("✅ Seed complete");
+      process.exit(0);
+    })
+    .catch((e) => {
+      console.error("Seed failed:", e);
+      process.exit(1);
+    });
 }
-
-main().catch((e) => {
-  console.error("Seed failed:", e);
-  process.exit(1);
-});
