@@ -16,11 +16,11 @@
 html {
   scroll-behavior: smooth;
   /* Sticky nav is 64px tall — small offset so sections clear the nav without a big gap. */
-  scroll-padding-top: 76px;
+  scroll-padding-top: 8px;
 }
 /* Fallback for elements scrolled into view (e.g. focus / hash targets). */
 [id] {
-  scroll-margin-top: 24px;
+  scroll-margin-top: 8px;
 }
 body {
   background: #04091a;

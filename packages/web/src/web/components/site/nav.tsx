@@ -47,7 +47,11 @@ export function Nav({ links }: { links: NavLink[] }) {
           gap: 20,
         }}
       >
-        <Link to="/" style={{ display: "flex", alignItems: "center", flex: "none" }}>
+        <Link
+          to="/"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          style={{ display: "flex", alignItems: "center", flex: "none" }}
+        >
           <img
             src="/skilltimate-logo.png"
             alt="Skilltimate"
