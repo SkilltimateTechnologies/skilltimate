@@ -1,0 +1,571 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Skilltimate Technologies — Northstar DS global styles
+   ============================================================ */
+:root {
+  --ink: #04091a;
+  --paper: #f2f6fc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #04091a;
+  color: #f2f6fc;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: #7fbaff;
+  text-decoration: none;
+}
+a:hover {
+  color: #f2f6fc;
+}
+
+/* Keyframes ported from source */
+@keyframes st_tw {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.72) rotate(18deg);
+    opacity: 0.55;
+  }
+}
+@keyframes st_shine {
+  0% {
+    left: -45%;
+  }
+  55%,
+  100% {
+    left: 130%;
+  }
+}
+@keyframes st_drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(50px, -40px) scale(1.12);
+  }
+}
+@keyframes st_sheen {
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes st_tick {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes st_railglow {
+  to {
+    background-position: 200% 0;
+  }
+}
+@keyframes st_float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-22px);
+  }
+}
+@keyframes st_orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes st_core {
+  0%,
+  100% {
+    box-shadow: 0 0 34px rgba(231, 185, 76, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(231, 185, 76, 0.45);
+  }
+}
+@keyframes st_icfloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes st_pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* Hover helpers */
+.st-cta-gold:hover,
+.st-cta-wa:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.st-card-hover {
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.st-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(127, 186, 255, 0.32);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.42), 0 0 32px rgba(46, 143, 255, 0.1);
+}
+
+/* ============================================================
+   Premium GlowCard — cursor-follow light + rotating border light
+   ============================================================ */
+.st-glow {
+  position: relative;
+  isolation: isolate;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 0.45s ease;
+}
+.st-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--st-angle, 0deg),
+    transparent 0deg,
+    rgba(46, 143, 255, 0.55) 60deg,
+    rgba(231, 185, 76, 0.55) 130deg,
+    transparent 200deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.st-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--st-mx, 50%) var(--st-my, 0%),
+    rgba(127, 186, 255, 0.14),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.st-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.5);
+}
+.st-glow:hover::before,
+.st-glow:hover::after {
+  opacity: 1;
+}
+@property --st-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.st-glow:hover {
+  animation: st_borderspin 4s linear infinite;
+}
+@keyframes st_borderspin {
+  to {
+    --st-angle: 360deg;
+  }
+}
+/* keep content above glow layers */
+.st-glow > * {
+  position: relative;
+  z-index: 2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-glow:hover {
+    animation: none;
+    transform: none;
+  }
+}
+/* Register CTA — a bright light that continuously travels around the whole
+   border as a crisp ring, with a soft coloured bloom trailing the same head.
+   The ring is masked to a thin 2px border (both prefixed + unprefixed mask so
+   it renders reliably in Chromium). Always animating; brighter on hover. */
+.st-cta-reg {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+/* the traveling ring — a conic sweep clipped to the border only */
+.st-cta-reg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--st-angle),
+    transparent 0deg,
+    transparent 205deg,
+    rgba(255, 255, 255, 0.55) 268deg,
+    #ffffff 300deg,
+    rgba(255, 255, 255, 0.85) 320deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: st_borderspin 3.2s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+/* soft coloured bloom spilling past the edge, following the same head */
+.st-cta-reg::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--st-angle),
+    transparent 0deg,
+    transparent 240deg,
+    rgba(37, 211, 102, 0.65) 300deg,
+    rgba(170, 255, 0, 0.5) 320deg,
+    transparent 360deg
+  );
+  filter: blur(14px);
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+  animation: st_borderspin 3.2s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+.st-cta-reg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(37, 211, 102, 0.4), 0 0 24px rgba(37, 211, 102, 0.34);
+}
+.st-cta-reg:hover::before {
+  animation-duration: 1.5s;
+}
+.st-cta-reg:hover::after {
+  opacity: 1;
+  animation-duration: 1.5s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-cta-reg:hover {
+    transform: none;
+  }
+  .st-cta-reg::before,
+  .st-cta-reg::after {
+    animation: none;
+  }
+}
+
+/* Count-up stat numbers — tabular so digits don't jump + soft glow */
+.st-statnum {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 22px rgba(231, 185, 76, 0.22);
+}
+
+.st-navlink {
+  color: #8fa3c0;
+  transition: color 0.18s ease;
+}
+.st-navlink:hover {
+  color: #f2f6fc;
+}
+.st-foot a:hover {
+  color: #f2f6fc !important;
+}
+
+/* Details marker */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   Layout grids (responsive) — used by page components
+   ============================================================ */
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+.wrap-cp {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+.st-navlinks-desktop {
+  color: #8fa3c0;
+}
+
+.st-hero-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 56px;
+  align-items: start;
+}
+.st-news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px 26px;
+}
+.st-statstrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.st-window {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 40px;
+  align-items: center;
+}
+.st-tracks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+.st-flag {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 30px;
+  align-items: center;
+}
+.st-incl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.st-quotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Course page */
+.cp-herogrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 52px;
+  align-items: start;
+}
+.cp-2col {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+.cp-2col-b {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
+}
+.cp-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.cp-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.cp-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cp-instructor {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  gap: 40px;
+  align-items: center;
+}
+.cp-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Article page */
+.ap-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 46px;
+  align-items: start;
+}
+.ap-related {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* Generic */
+.g-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.g-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.ct-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 40px;
+  align-items: start;
+}
+.ab-vals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.ab-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.fq-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 44px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .st-hero-grid,
+  .st-window,
+  .st-flag,
+  .cp-herogrid,
+  .cp-2col,
+  .cp-2col-b,
+  .cp-instructor {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .st-statstrip,
+  .st-quotes,
+  .cp-3,
+  .ct-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .st-incl {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 920px) {
+  .st-news-grid,
+  .cp-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .ap-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ap-toc,
+  .fq-toc {
+    display: none !important;
+  }
+  .ap-related,
+  .fq-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 880px) {
+  .st-navlinks-desktop {
+    display: none !important;
+  }
+  .st-page {
+    padding-bottom: 84px !important;
+  }
+  .st-tracks,
+  .ab-vals {
+    grid-template-columns: 1fr !important;
+  }
+  .ab-stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 640px) {
+  .st-news-grid,
+  .st-incl,
+  .cp-4,
+  .cp-facts,
+  .g-2,
+  .g-3,
+  .ap-related {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Floating bottom CTA bar (landing) */
+.st-fab {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(10, 20, 40, 0.97), rgba(4, 9, 26, 0.99));
+  backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(231, 185, 76, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.55);
+}
+@media (min-width: 881px) {
+  .st-fab {
+    max-width: 520px;
+    left: auto !important;
+    right: 24px !important;
+    bottom: 24px !important;
+    border: 1px solid rgba(231, 185, 76, 0.4) !important;
+    border-radius: 100px !important;
+    padding: 10px 12px 10px 22px !important;
+  }
+}
