@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { desc, eq, sql } from "drizzle-orm";
-import { db } from "./database";
+import { db } from "./database/index";
 import * as schema from "./database/schema";
 import { auth } from "./auth";
 import { authMiddleware, requireAuth } from "./middleware/auth";

@@ -4,7 +4,7 @@
  * Run:  cd packages/web && bun --env-file=../../.env run src/api/seed.ts
  * Idempotent: skips admin creation if it already exists.
  */
-import { db } from "./database";
+import { db } from "./database/index";
 import * as schema from "./database/schema";
 import { auth } from "./auth";
 import { eq } from "drizzle-orm";
